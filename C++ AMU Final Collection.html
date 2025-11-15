@@ -1,0 +1,1173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMU Pre-engineering C++ Final Exam Collections</title>
+    <style>
+        :root {
+            --primary-color: #5F9EA0; 
+            --secondary-color: #4682B4;  
+            --background-color: #F8F9FA;  
+            --text-color: #212529; 
+            --card-bg: #FFFFFF;
+            --border-color: #DEE2E6; 
+            --success-color: #28A745;  
+            --error-color: #DC3545; 
+            --code-bg: #E9ECEF;  
+            --header-gradient: #f0f0f0; 
+            --tab-bg: linear-gradient(to right, #4682B4, #5F9EA0);
+            --tab-active-bg: linear-gradient(135deg, #5F9EA0, #76ABAE);
+            --tab-hover-bg: #76ABAE;
+            --chapter-title-bg: linear-gradient(135deg, #5F9EA0, #76ABAE);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #76ABAE;
+            --secondary-color: #5F9EA0;
+            --background-color: #212529;  
+            --text-color: #E9ECEF;  
+            --card-bg: #343A40; 
+            --border-color: #495057; 
+            --success-color: #28A745;
+            --error-color: #DC3545;
+            --code-bg: #2B3035;
+            --header-gradient: #2B3035;  
+            --tab-bg: linear-gradient(to right, #343A40, #212529);
+            --tab-active-bg: linear-gradient(135deg, #4682B4, #5F9EA0);
+            --tab-hover-bg: #5F9EA0;
+            --chapter-title-bg: linear-gradient(135deg, #4682B4, #5F9EA0);
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        header {
+            background: var(--header-gradient);
+            color: var(--text-color); 
+            padding: 1px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 2px;
+            font-size: 1.5rem;
+            padding: 12px 0;
+        }
+
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+
+        .tabs {
+            display: flex;
+            background: var(--tab-bg);
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 6px 4px;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: var(--primary-color) var(--secondary-color); /* Firefox */
+        }
+        /* Webkit scrollbar styles */
+        .tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+        .tabs::-webkit-scrollbar-track {
+            background: var(--secondary-color);
+        }
+        .tabs::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .tab {
+            padding: 10px 16px;
+            cursor: pointer;
+            color: white;
+            text-align: center;
+            flex: 0 0 auto;
+            transition: all 0.3s ease;
+            margin: 0 4px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .tab:hover {
+             background-color: var(--tab-hover-bg);
+             transform: translateY(-1px);
+        }
+
+        .tab.active {
+            background: var(--tab-active-bg);
+            font-weight: bold;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 5px rgba(0,0,0,0.3);
+        }
+        .tab.active:hover {
+            background: var(--tab-active-bg); /* Keep active style on hover */
+        }
+
+        .content {
+            display: none;
+            padding: 16px;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .question-content {
+            font-size: 18px;
+            margin-bottom: 16px;
+            white-space: pre-wrap; /* Preserve line breaks in question content */
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin-bottom: 16px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .options {
+            margin-bottom: 16px;
+        }
+
+        .option {
+            padding: 12px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .option:hover {
+            background-color: rgba(90, 143, 123, 0.1);
+        }
+        
+        .option.correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-color: #2ECC71;
+        }
+        
+        .option.incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            border-color: #E74C3C;
+        }
+
+        .button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .explanation {
+            background-color: rgba(90, 143, 123, 0.08);
+            border-left: 4px solid var(--primary-color);
+            padding: 12px;
+            margin-top: 16px;
+            display: none;
+            white-space: pre-wrap; /* Preserve formatting in explanations */
+            word-wrap: break-word;
+        }
+
+        .explanation.visible {
+            display: block;
+        }
+
+        .explanation strong {
+            color: var(--primary-color);
+        }
+
+        .explanation code {
+             background-color: var(--code-bg);
+             padding: 2px 4px;
+             border-radius: 3px;
+             font-family: 'Courier New', monospace;
+        }
+
+        .explanation pre {
+            background-color: var(--code-bg);
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .result.correct {
+            color: var(--success-color);
+        }
+
+        .result.incorrect {
+            color: var(--error-color);
+        }
+
+        .matching-container {
+            margin-bottom: 16px;
+        }
+
+        .matching-pair {
+            display: flex;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .matching-item {
+            padding: 12px;
+            flex: 1;
+        }
+
+        .matching-item:first-child {
+            border-right: 1px solid var(--border-color);
+            font-weight: bold;
+            flex-basis: 40%; /* Adjust basis if needed */
+        }
+
+        .fill-blank-input {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-width: 100px;
+        }
+
+        .settings {
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            z-index: 1000;
+        }
+
+        .theme-toggle {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .chapter-title {
+            background: var(--chapter-title-bg);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
+
+        .home-chapter-links {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .home-chapter-link {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .home-chapter-link:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .tab {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            .question-content {
+                font-size: 16px;
+            }
+
+            header h1 {
+                font-size: 1.1rem;
+            }
+
+            .chapter-title {
+                font-size: 1.1rem;
+            }
+
+            .tabs {
+                justify-content: flex-start; /* Allow scrolling */
+            }
+
+            .home-chapter-links {
+                grid-template-columns: 1fr; /* Stack links vertically */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AMU Pre-engineering C++ Final Exams Collections</h1>
+    </header>
+
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('home')">Home</div>
+        <div class="tab" onclick="showTab('chapter3')">Control Statements</div>
+        <div class="tab" onclick="showTab('chapter4')">Functions</div>
+        <div class="tab" onclick="showTab('chapter5')">Arrays & Strings</div>
+        <div class="tab" onclick="showTab('chapter6')">Pointers</div>
+    </div>
+
+    <div class="container">
+        <div id="home" class="content active">
+            <div class="card">
+                <h2>Welcome!</h2>
+                <p>Select a chapter from the navigation bar above or use the links below to start reviewing C++ questions.</p>
+                <div class="home-chapter-links">
+                    <a href="#" class="home-chapter-link" onclick="showTab('chapter3'); return false;">Chapter 3: Control Statements</a>
+                    <a href="#" class="home-chapter-link" onclick="showTab('chapter4'); return false;">Chapter 4: Functions</a>
+                    <a href="#" class="home-chapter-link" onclick="showTab('chapter5'); return false;">Chapter 5: Arrays & Strings</a>
+                    <a href="#" class="home-chapter-link" onclick="showTab('chapter6'); return false;">Chapter 6: Pointers</a>
+                </div>
+            </div>
+        </div>
+        <div class="car" style="text-align: center;">"በእርሱ የሚያምን ሁሉ የዘላለም ሕይወት እንዲኖረው እንጂ እንዳይጠፋ እግዚአብሄር አንድያ ልጁን እስኪሰጥ ድረስ ዓለሙን እንዲሁ ወዶአልና።"
+                        <p style="text-align: center; padding: 5px; background-color: var(--card-bg); color: var(--text-color); font-size: 0.8em; border-top: 11px solid var(--border-color);">የዮሐንስ ወንጌል 3፡16</p>
+        </div>
+        <div id="chapter3" class="content">
+            <div class="chapter-title">
+                <h2>Chapter 3: Control Statements</h2>
+            </div>
+            <div id="chapter3Questions"></div>
+        </div>
+
+        <div id="chapter4" class="content">
+            <div class="chapter-title">
+                <h2>Chapter 4: Functions</h2>
+            </div>
+            <div id="chapter4Questions"></div>
+        </div>
+
+        <div id="chapter5" class="content">
+            <div class="chapter-title">
+                <h2>Chapter 5: Arrays and Strings</h2>
+            </div>
+            <div id="chapter5Questions"></div>
+        </div>
+
+        <div id="chapter6" class="content">
+            <div class="chapter-title">
+                <h2>Chapter 6: Pointers</h2>
+            </div>
+            <div id="chapter6Questions"></div>
+        </div>
+    </div>
+
+    <div class="settings">
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+    </div>
+
+    <script>
+        // --- Existing Question Data --- (Will be replaced/merged)
+        const questions = {
+            chapter3: [
+                {
+                    id: 'q1',
+                    type: 'multiple_choice',
+                    content: 'How many times is CPP printed?',
+                    code: `int main(){\n  int i=0;\n  lbl:\n  cout<<"CPP";\n  i++;\n  if(i<5) goto lbl;\n  return 0;\n}`,
+                    options: [
+                        { id: 'a', text: 'Error' },
+                        { id: 'b', text: '5 times' },
+                        { id: 'c', text: '4 times' },
+                        { id: 'd', text: '6 times' }
+                    ],
+                    answer: 'b',
+                    explanation: 'The program initializes i to 0, prints "CPP", increments i to 1, and checks if i<5. Since 1<5 is true, it jumps back to label \'lbl\'. This process repeats until i becomes 5. The string "CPP" is printed when i equals 0, 1, 2, 3, and 4, which is a total of 5 times.'
+                },
+                {
+                    id: 'q2',
+                    type: 'true_false',
+                    content: 'The switch statement is also called a selective structure.',
+                    answer: true,
+                    explanation: 'The switch statement is also known as a selective structure because it selects one of many code blocks to be executed based on the value of an expression.'
+                },
+                {
+                    id: 'q3',
+                    type: 'multiple_choice',
+                    content: 'Which looping process is best used when the number of iterations is known?',
+                    options: [
+                        { id: 'a', text: 'for' },
+                        { id: 'b', text: 'while' },
+                        { id: 'c', text: 'do-while' },
+                        { id: 'd', text: 'all looping processes require that the iterations be known' }
+                    ],
+                    answer: 'a',
+                    explanation: 'The for loop is specifically designed for situations where the number of iterations is known beforehand. Its syntax includes initialization, condition, and increment/decrement expressions, making it ideal for counting loops with a predetermined number of iterations.'
+                },
+                {
+                    id: 'q4',
+                    type: 'code_output',
+                    content: 'What is the output of the following code?',
+                    code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 10;\n    \n    if (x > 5) {\n        if (x < 15)\n            cout << "A";\n        else\n            cout << "B";\n    } else {\n        if (x < 15)\n            cout << "C";\n        else\n            cout << "D";\n    }\n    \n    return 0;\n}`,
+                    answer: 'A',
+                    explanation: 'The value of x is 10. First, we check if x > 5, which is true, so we enter the first if block. Then we check if x < 15, which is also true, so we output "A".'
+                }
+                // ... more existing questions ...
+            ],
+            chapter4: [
+                 {
+                    id: 'q5',
+                    type: 'multiple_choice',
+                    content: 'Which of the following is the default return value of functions in C++?',
+                    options: [
+                        { id: 'a', text: 'int' },
+                        { id: 'b', text: 'char' },
+                        { id: 'c', text: 'float' },
+                        { id: 'd', text: 'void' }
+                    ],
+                    answer: 'a',
+                    explanation: 'Historically in C++, if no return type was specified for a function, the compiler would default to int. However, in modern C++ (C++11 and later), this feature has been deprecated, and an explicit return type is required for all functions except main().'
+                },
+                {
+                    id: 'q6',
+                    type: 'true_false',
+                    content: 'Function overloading allows multiple functions with the same name but different parameter lists.',
+                    answer: true,
+                    explanation: 'Function overloading is a feature in C++ that allows multiple functions to have the same name but different parameter lists (different number or types of parameters). The compiler determines which function to call based on the arguments provided at the call site.'
+                },
+                {
+                    id: 'q7',
+                    type: 'code_output',
+                    content: 'What is the output of the following code?',
+                    code: `#include <iostream>\nusing namespace std;\n\nint factorial(int n) {\n    if (n <= 1)\n        return 1;\n    else\n        return n * factorial(n-1);\n}\n\nint main() {\n    cout << factorial(4);\n    return 0;\n}`,
+                    answer: '24',
+                    explanation: 'The factorial function calculates n! recursively. For n=4, it computes 4 * factorial(3), which is 4 * (3 * factorial(2)), which is 4 * (3 * (2 * factorial(1))), which is 4 * (3 * (2 * 1)) = 4 * (3 * 2) = 4 * 6 = 24.'
+                },
+                {
+                    id: 'q8',
+                    type: 'matching',
+                    content: 'Match the function-related term with its description:',
+                    pairs: [
+                        { left: 'Parameter', right: 'Variable in function declaration' },
+                        { left: 'Argument', right: 'Value passed to function when called' },
+                        { left: 'Return value', right: 'Data sent back from function' },
+                        { left: 'Function prototype', right: 'Declaration of function interface' }
+                    ],
+                    explanation: 'ሁሉም ከፊትለፊቱ ካለዉ ጋር በቀጥታ Match ያደርጋል።'
+                }
+                // ... more existing questions ...
+            ],
+            chapter5: [
+                {
+                    id: 'q9',
+                    type: 'multiple_choice',
+                    content: 'Which of the following correctly declares an array?',
+                    options: [
+                        { id: 'a', text: 'int array[10];' },
+                        { id: 'b', text: 'int array;' },
+                        { id: 'c', text: 'array{10};' },
+                        { id: 'd', text: 'array array[10];' }
+                    ],
+                    answer: 'a',
+                    explanation: 'The correct syntax to declare an array in C++ is to specify the data type, followed by the array name, and then the size in square brackets. "int array[10];" declares an integer array named "array" with 10 elements, indexed from 0 to 9.'
+                },
+                {
+                    id: 'q10',
+                    type: 'true_false',   content: 'In C++, arrays are passed to functions by value by default.',
+                    answer: false,
+                    explanation: 'In C++, arrays are not passed by value by default. When an array is passed to a function, what is actually passed is a pointer to the first element of the array. This means that changes made to the array inside the function will affect the original array.'
+                },
+                {
+                    id: 'q11',
+                    type: 'code_output',
+                    content: 'What is the output of the following code?',
+                    code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int arr[] = {10, 20, 30, 40, 50};\n    int *ptr = arr;\n    \n    cout << *ptr << " ";\n    ptr++;\n    cout << *ptr << " ";\n    ptr += 2;\n    cout << *ptr;\n    \n    return 0;\n}`,
+                    answer: '10 20 40',
+                    explanation: 'The pointer ptr is initialized to point to the first element of the array arr. *ptr gives the value at that location, which is 10. After ptr++, ptr points to the second element, so *ptr is 20. After ptr += 2, ptr points to the fourth element (skipping two elements), so *ptr is 40.'
+                },
+                {
+                    id: 'q12',
+                    type: 'matching',
+                    content: 'Match the string function with its purpose:',
+                    pairs: [
+                        { left: 'strlen()', right: 'Returns the length of a string' },
+                        { left: 'strcpy()', right: 'Copies one string to another' },
+                        { left: 'strcat()', right: 'Concatenates two strings' },
+                        { left: 'strcmp()', right: 'Compares two strings' }
+                    ],
+                    explanation: 'ሁሉም ከፊትለፊቱ ካለዉ ጋር በቀጥታ Match ያደርጋል።'
+                }
+                // ... more existing questions ...
+            ],
+            chapter6: [
+                {
+                    id: 'q13',
+                    type: 'multiple_choice',
+                    content: 'What does the following statement mean? int (*fp)(char*)',
+                    options: [
+                        { id: 'a', text: 'pointer to a pointer' },
+                        { id: 'b', text: 'pointer to an array of chars' },
+                        { id: 'c', text: 'pointer to function taking a char* argument and returns an int' },
+                        { id: 'd', text: 'function taking a char* argument and returning a pointer to int' }
+                    ],
+                    answer: 'c',
+                    explanation: 'The declaration `int (*fp)(char*)` defines fp as a pointer to a function that takes a char* (pointer to char) as an argument and returns an int. The parentheses around *fp are necessary to indicate that fp is a pointer to a function, not a function that returns a pointer.'
+                },
+                {
+                    id: 'q14',
+                    type: 'true_false',
+                    content: 'A null pointer can be safely dereferenced.',
+                    answer: false,
+                    explanation: 'Dereferencing a null pointer is undefined behavior in C++ and typically results in a program crash or segmentation fault. A null pointer does not point to any valid memory location, so attempting to access the value it points to (*ptr when ptr is null) is an error.'
+                },
+                {
+                    id: 'q15',
+                    type: 'code_output',
+                    content: 'What is the output of the following code?',
+                    code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 10;\n    int *p = &x;\n    int **q = &p;\n    \n    cout << **q;\n    \n    return 0;\n}`,
+                    answer: '10',
+                    explanation: 'The variable x is assigned the value 10. The pointer p points to x, so *p is 10. The pointer q is a pointer to pointer (double pointer) that points to p, so **q is equivalent to *(*q) which is *(p) which is 10.'
+                },
+                {
+                    id: 'q16',
+                    type: 'matching',
+                    content: 'Match the pointer concept with its description:',
+                    pairs: [
+                        { left: 'Pointer declaration', right: 'int *p;' },
+                        { left: 'Address-of operator', right: '&' },
+                        { left: 'Dereferencing operator', right: '*' },
+                        { left: 'Null pointer', right: 'Pointer not pointing to any valid memory' }
+                    ],
+                    explanation: 'ሁሉም ከፊትለፊቱ ካለዉ ጋር በቀጥታ Match ያደርጋል።'
+                }
+                // ... more existing questions ...
+            ]
+        };
+
+        // --- New Question Data --- (From ExamC++.docx)
+        const newQuestions = {
+            chapter3: [
+                {
+                    id: 'q_docx_5', type: 'multiple_choice', content: 'How many types of loops are there in C++?',
+                    options: [ { id: 'a', text: '4' }, { id: 'b', text: '3' }, { id: 'c', text: '2' }, { id: 'd', text: '1' } ],
+                    answer: 'b', explanation: 'C++ primarily has three types of loops: for, while, and do-while. Range-based for loops (introduced in C++11) are a variation of the for loop.'
+                },
+                {
+                    id: 'q_docx_6', type: 'multiple_choice', content: 'The destination statement for the goto label is identified by what label?',
+                    options: [ { id: 'a', text: '$' }, { id: 'b', text: '*' }, { id: 'c', text: '@' }, { id: 'd', text: ':' } ],
+                    answer: 'd', explanation: 'A label in C++ is an identifier followed by a colon (:). The goto statement transfers control to the statement immediately following the specified label.'
+                },
+                {
+                    id: 'q_docx_7', type: 'multiple_choice', content: 'The if..else statement can be replaced by which operator?',
+                    options: [ { id: 'a', text: 'Bitwise operator' }, { id: 'b', text: 'Multiplicative operator' }, { id: 'c', text: 'Conditional operator' }, { id: 'd', text: 'Addition operator' } ],
+                    answer: 'c', explanation: 'The conditional operator (?:), also known as the ternary operator, provides a concise way to express a simple if-else statement. Syntax: condition ? value_if_true : value_if_false.'
+                },
+                {
+                    id: 'q_docx_8', type: 'multiple_choice', content: 'Which of the following expression can be used as condition with if statement?',
+                    options: [ { id: 'a', text: 'Arithmetic' }, { id: 'b', text: 'Logical' }, { id: 'c', text: 'Relational' }, { id: 'd', text: 'Both B and C' } ],
+                    answer: 'd', explanation: 'The condition in an if statement evaluates to a boolean value (true or false). Both logical expressions (e.g., a && b) and relational expressions (e.g., x > y) produce boolean results and can be used directly. Arithmetic expressions can also be used, where non-zero results are treated as true and zero as false, but logical and relational expressions are more common for conditions.'
+                },
+                {
+                    id: 'q_docx_10', type: 'multiple_choice', content: 'Which of the following is the correct syntax to add the header file in the C++ program?',
+                    options: [ { id: 'a', text: '#include <>' }, { id: 'b', text: '#include " "' }, { id: 'c', text: '<include> " "' }, { id: 'd', text: 'Both A and B' } ],
+                    answer: 'd', explanation: '#include <filename> is used for standard library headers, while #include "filename" is typically used for user-defined headers or headers in the current project directory. Both are valid syntax for including header files.'
+                },
+                {
+                    id: 'q_docx_18', type: 'multiple_choice', content: 'Decision Control statements in C++ can be implemented using:',
+                    options: [ { id: 'a', text: 'If' }, { id: 'b', text: 'if-else' }, { id: 'c', text: 'Conditional Operator' }, { id: 'd', text: 'All of the above' } ],
+                    answer: 'd', explanation: 'All listed constructs (if, if-else, conditional operator ?:) are used for making decisions and controlling the flow of execution in C++.'
+                },
+                {
+                    id: 'q_docx_21', type: 'multiple_choice', content: 'Choose the type of loop which is guaranteed to execute at least once?',
+                    options: [ { id: 'a', text: 'for loop' }, { id: 'b', text: 'do-while' }, { id: 'c', text: 'while' }, { id: 'd', text: 'none' } ],
+                    answer: 'b', explanation: 'The do-while loop checks its condition *after* executing the loop body, guaranteeing that the body runs at least one time, even if the condition is initially false.'
+                },
+                {
+                    id: 'q_docx_22', type: 'multiple_choice', content: 'Selective switch is equivalent to:',
+                    options: [ { id: 'a', text: 'nested if-else' }, { id: 'b', text: 'for loop' }, { id: 'c', text: 'do-while loop' }, { id: 'd', text: 'if statement' } ],
+                    answer: 'a', explanation: 'A switch statement can often be rewritten using a series of nested if-else if statements checking the value of the same expression against different constants.'
+                },
+                {
+                    id: 'q_docx_29', type: 'multiple_choice', content: 'What result is printed by this block of code?',
+                    code: `int price = 1138;\nif (price >= 1000)\n    price += price / 10;\nelse if (price >= 100)\n    price += price / 20;\nelse\n    price += price / 100;\ncout << price;`,
+                    options: [ { id: 'a', text: '1149' }, { id: 'b', text: '1194' }, { id: 'c', text: '1251' }, { id: 'd', text: 'There is an error' } ],
+                    answer: 'c', explanation: 'Initial price is 1138. Since 1138 >= 1000 is true, the first condition is met. price += price / 10 calculates 1138 + (1138 / 10). Integer division 1138 / 10 is 113. So, price becomes 1138 + 113 = 1251. The else if and else blocks are skipped.'
+                },
+                {
+                    id: 'q_docx_tf_3', type: 'true_false', content: 'Break instruction can be used to end an infinite loop, or to force it to end before its nature.',
+                    answer: true, explanation: 'The `break` statement is used to exit the innermost loop (for, while, do-while) or switch statement immediately, regardless of the loop\'s condition. It\'s commonly used to terminate loops based on a specific condition met inside the loop body, including potentially infinite loops.'
+                },
+                {
+                    id: 'q_docx_fb_2', type: 'fill_in_blank', content: '_________ loop is not recommended to implement in a place where it is most needed, which can lead to the loss of human life by one mistake.',
+                    answer: 'goto', explanation: 'The `goto` statement allows unconditional jumps to labeled statements. Its use is generally discouraged in modern programming because it can make code difficult to read, understand, and debug, leading to "spaghetti code". In critical systems, unstructured control flow like `goto` can increase the risk of errors.'
+                },
+                {
+                    id: 'q_docx_fb_4', type: 'code_output', content: 'What is the output of the program below?',
+                    code: `#include <iostream>\nusing namespace std;\nint main(){\nint n = 3;\nwhile (n >= 0) {\ncout << n * n << endl;\n--n; }\ncout << n << endl;\nwhile (n < 4)\ncout << ++n << endl;\ncout << n << endl;\nwhile (n >= 0)\ncout << (n-- != 2) << endl; // Note: n-- happens after comparison\nreturn 0; }`,
+                    answer: '9\n4\n1\n0\n-1\n0\n1\n2\n3\n4\n4\n1\n1\n0\n1\n1',
+                    explanation: '1. First while loop (n>=0): Prints n*n for n=3,2,1,0. Output: 9, 4, 1, 0. n becomes -1.\n2. cout << n: Prints -1.\n3. Second while loop (n<4): Prints ++n for n=-1,0,1,2,3. Output: 0, 1, 2, 3, 4. n becomes 4.\n4. cout << n: Prints 4.\n5. Third while loop (n>=0): Prints (n-- != 2) for n=4,3,2,1,0. \n   n=4: (4 != 2) -> 1. n becomes 3.\n   n=3: (3 != 2) -> 1. n becomes 2.\n   n=2: (2 != 2) -> 0. n becomes 1.\n   n=1: (1 != 2) -> 1. n becomes 0.\n   n=0: (0 != 2) -> 1. n becomes -1. Output: 1, 1, 0, 1, 1.\nFinal combined output (separated by newlines): 9\n4\n1\n0\n-1\n0\n1\n2\n3\n4\n4\n1\n1\n0\n1\n1'
+                },
+                {
+                    id: 'q_docx_w_3', type: 'workout', content: 'Write a C++ program that displays the days of a month from the 1st day up to the 30th day sequentially. Below the loop body, display your full name.\na. At the 15th and 17th day, the program calls continue and break respectively.\nb. At the 15th and 20th day, the program calls continue and exit() function respectively',
+                    answer: 'See explanation for code.',
+                    explanation: '**Part a (continue and break):**\n```cpp\n#include <iostream>\n\nint main() {\n    std::cout << "Days of the month (Part a):\\n";\n    for (int day = 1; day <= 30; ++day) {\n        if (day == 15) {\n            std::cout << "Skipping day 15 (continue)\\n";\n            continue; // Skip the rest of the loop body for day 15\n        }\n        if (day == 17) {\n            std::cout << "Stopping at day 17 (break)\\n";\n            break; // Exit the loop entirely\n        }\n        std::cout << "Day " << day << std::endl;\n    }\n    std::cout << "Your Full Name (after loop a)" << std::endl; // Replace with actual name\n    return 0;\n}\n```\n*Explanation (a):* The loop iterates from 1 to 30. When `day` is 15, `continue` skips the `cout` for day 15 and proceeds to the next iteration (day 16). When `day` is 17, `break` terminates the loop immediately. "Your Full Name" is printed after the loop finishes (or breaks).\n\n**Part b (continue and exit):**\n```cpp\n#include <iostream>\n#include <cstdlib> // Required for exit()\n\nint main() {\n    std::cout << "Days of the month (Part b):\\n";\n    for (int day = 1; day <= 30; ++day) {\n        if (day == 15) {\n            std::cout << "Skipping day 15 (continue)\\n";\n            continue; // Skip the rest of the loop body for day 15\n        }\n        if (day == 20) {\n            std::cout << "Exiting program at day 20 (exit)\\n";\n            exit(0); // Terminate the entire program\n        }\n        std::cout << "Day " << day << std::endl;\n    }\n    // This line will likely not be reached in part b\n    std::cout << "Your Full Name (after loop b)" << std::endl; // Replace with actual name\n    return 0;\n}\n```\n*Explanation (b):* The loop iterates similarly. `continue` at day 15 skips printing day 15. When `day` is 20, `exit(0)` terminates the entire program immediately. The final `cout` with the name will not be executed because the program exits beforehand.'
+                }
+            ],
+            chapter4: [
+                {
+                    id: 'q_docx_1', type: 'multiple_choice', content: 'Which of the following operator is used as argument separator?',
+                    options: [ { id: 'a', text: 'Colon ;' }, { id: 'b', text: 'Semi colon ;' }, { id: 'c', text: 'Comma ,' }, { id: 'd', text: 'Dot .' } ],
+                    answer: 'c', explanation: 'Commas (,) are used to separate arguments in a function call and parameters in a function declaration/definition.'
+                },
+                {
+                    id: 'q_docx_2', type: 'multiple_choice', content: 'In C++ how many parameters a function can accept?',
+                    options: [ { id: 'a', text: 'One' }, { id: 'b', text: 'Three' }, { id: 'c', text: 'Two' }, { id: 'd', text: 'Multiple' } ],
+                    answer: 'd', explanation: 'A C++ function can accept zero or more parameters. The number and type of parameters are defined in the function\'s signature.'
+                },
+                {
+                    id: 'q_docx_3', type: 'multiple_choice', content: 'Where should default parameters appear in a function prototype?',
+                    options: [ { id: 'a', text: 'To the rightmost side of the parameter list' }, { id: 'b', text: 'To the leftmost side of the parameter list' }, { id: 'c', text: 'Anywhere inside the parameter list' }, { id: 'd', text: 'Middle of the parameter list' } ],
+                    answer: 'a', explanation: 'Default arguments must be the trailing (rightmost) arguments in a function\'s parameter list. Once a parameter is given a default value, all subsequent parameters must also have default values.'
+                },
+                {
+                    id: 'q_docx_4', type: 'multiple_choice', content: 'Which of the following type is used for returning nothing from function?',
+                    options: [ { id: 'a', text: 'Void' }, { id: 'b', text: 'float' }, { id: 'c', text: 'int' }, { id: 'd', text: 'nothing' } ],
+                    answer: 'a', explanation: 'The `void` keyword is used as the return type for functions that do not return any value.'
+                },
+                {
+                    id: 'q_docx_12', type: 'multiple_choice', content: 'The function calls itself known as:',
+                    options: [ { id: 'a', text: 'Prototype' }, { id: 'b', text: 'Inline' }, { id: 'c', text: 'Recursion' }, { id: 'd', text: 'A and B' } ],
+                    answer: 'c', explanation: 'Recursion is a programming technique where a function calls itself directly or indirectly to solve a problem.'
+                },
+                {
+                    id: 'q_docx_20', type: 'multiple_choice', content: 'When will we use the function overloading?',
+                    options: [ { id: 'a', text: 'Functions preceding with virtual keywords.' }, { id: 'b', text: 'Functions inherited from base class to derived class.' }, { id: 'c', text: 'Two or more functions having same name but different number of parameters or type.' }, { id: 'd', text: 'None of above' } ],
+                    answer: 'c', explanation: 'Function overloading is used when you need multiple functions with the same name to perform similar tasks but operate on different types or numbers of arguments.'
+                },
+                {
+                    id: 'q_docx_25', type: 'multiple_choice', content: 'Where does the execution of the program start?',
+                    options: [ { id: 'a', text: 'user-defined function' }, { id: 'b', text: 'void function' }, { id: 'c', text: 'main function' }, { id: 'd', text: 'none of the mentioned' } ],
+                    answer: 'c', explanation: 'The execution of every C++ program begins with the `main` function. It is the entry point of the program.'
+                },
+                {
+                    id: 'q_docx_28', type: 'multiple_choice', content: 'What is the correct output of the code below?',
+                    code: `#include<iostream>\nusing namespace std;\nvoid Execute(int &x, int y = 200){\nint TEMP = x + y;\nx += TEMP;\nif(y!=200)\ncout<<TEMP<<"--"<<x<<"--"<<y<<"--";\n}\n\nint main() {\n  int A=50, B=20;\n  cout<<A<<B<<"-";\n  Execute(A, B);\n  cout <<A<<B<< "-";\n  return 0;\n}`,
+                    options: [ { id: 'a', text: '5020--5020--' }, { id: 'b', text: '5020--7012020--12020--' }, { id: 'c', text: '5020--70120200--5020' }, { id: 'd', text: '5020--7050200--5020--' } ],
+                    answer: 'b',
+                    explanation: 'int A = 50, B = 20;\ncout << A << B << "-"; prints: 5020-\nThen, call Execute(A, B):\nx = A = 50, y = B = 20\nTEMP = x + y = 50 + 20 = 70\nx += TEMP => A = 50 + 70 = 120\n\nSince y != 200, the condition is true:\nOutput: TEMP = 70, x = 120, y = 20\nSo cout << TEMP << x << y << "-" prints: 7012020-\n\nThen back in main:\ncout << A << B << "-"; → A has been changed to 120, B is still 20\nSo prints: 12020-\n\nFull Output:\n5020-7012020-12020-'
+                },
+                {
+                    id: 'q_docx_tf_1', type: 'true_false', content: 'The following two functions can coexist in the same program. void foo(int x, char y); & void foo(char x, int y);',
+                    answer: true, explanation: 'Yes, these two functions can coexist due to function overloading. They have the same name (`foo`) but different parameter lists (int, char vs. char, int). The compiler can distinguish between calls based on the argument types.'
+                },
+                {
+                    id: 'q_docx_tf_8', type: 'true_false', content: 'A function can be called by any other functions.',
+                    answer: true, explanation: 'In general, any function (including `main`) can call any other function, provided the called function\'s declaration (prototype) or definition is visible at the point of the call. Restrictions might apply based on scope (e.g., private member functions in classes).'
+                },
+                {
+                    id: 'q_docx_m1', type: 'matching', content: 'Match the function prototype (Column A) with a possible valid call (Column B). Assume necessary variables (int x, y; float a, b; char c[10];) are declared.',
+                    pairs: [
+                        { left: '1. float fun(float*, float*);', right: 'F. a=fun(&x, &y); (Incorrect types)' },
+                        { left: '2. void fun(int, int);', right: 'H. fun(x, y);' },
+                        { left: '3. char fun(char*);', right: 'I. fun(&x); (Incorrect type)' },
+                        { left: '4. float fun(float=0, float=0);', right: 'J. fun()' },
+                        { left: '5. float* fun(float=0, float=0);', right: 'A. cout<<*fun()' }
+                    ],
+                    explanation: 'Matching prototypes to calls requires checking argument types and return types.\n1 (float fun(float*, float*)): Matches F (`a=fun(&a, &b);`) - Takes two float pointers, returns float.\n2 (void fun(int, int)): Matches H (`fun(x, y);`) - Takes two ints, returns void.\n3 (char fun(char*)): Matches E (`cout<<fun(c);`) or I (`fun(c);`) - Takes a char pointer, returns char.\n4 (float fun(float=0, float=0)): Matches J (`fun();`), G (`a=fun(x, y);` - assuming implicit conversion), D (`cout<<fun(a);`) - Takes optional floats, returns float.\n5 (float* fun(float=0, float=0)): Matches A (`cout<<*fun()`) - Takes optional floats, returns float pointer.'
+                },
+                {
+                    id: 'q_docx_w_2', type: 'workout', content: 'Write a program with the following functions:\na. odd -- to find and return the count of odd numbers.\nb. multiple5 -- to find and return the count of numbers divisible by 5.\nThe main function should read two integers as a range of numbers and call the above functions.',
+                    answer: 'See explanation for code.',
+                    explanation: '```cpp\n#include <iostream>\n\n// Function to count odd numbers in a range [start, end]\nint odd(int start, int end) {\n    int count = 0;\n    for (int i = start; i <= end; ++i) {\n        if (i % 2 != 0) { // Check if the number is odd\n            count++;\n        }\n    }\n    return count;\n}\n\n// Function to count numbers divisible by 5 in a range [start, end]\nint multiple5(int start, int end) {\n    int count = 0;\n    for (int i = start; i <= end; ++i) {\n        if (i % 5 == 0) { // Check if the number is divisible by 5\n            count++;\n        }\n    }\n    return count;\n}\n\nint main() {\n    int rangeStart, rangeEnd;\n\n    std::cout << "Enter the start of the range: ";\n    std::cin >> rangeStart;\n    std::cout << "Enter the end of the range: ";\n    std::cin >> rangeEnd;\n\n    // Ensure start is less than or equal to end\n    if (rangeStart > rangeEnd) {\n        std::cout << "Invalid range. Start should be less than or equal to end.\n";\n        return 1;\n    }\n\n    int oddCount = odd(rangeStart, rangeEnd);\n    int mult5Count = multiple5(rangeStart, rangeEnd);\n\n    std::cout << "Number of odd numbers in the range [" << rangeStart << ", " << rangeEnd << "]: " << oddCount << std::endl;\n    std::cout << "Number of multiples of 5 in the range [" << rangeStart << ", " << rangeEnd << "]: " << mult5Count << std::endl;\n\n    return 0;\n}\n```\n*Explanation:* The program defines two functions: `odd` and `multiple5`. Each function takes a start and end integer, iterates through the range, and counts numbers based on the specified criteria (oddness or divisibility by 5). The `main` function prompts the user for the range, calls these functions, and prints the results.'
+                }
+            ],
+            chapter5: [
+                {
+                    id: 'q_docx_14', type: 'multiple_choice', content: 'Which of the following gives the 3rd element of the array? int arr[]={1, 2, 3, 4};',
+                    options: [ { id: 'a', text: 'arr[0]' }, { id: 'b', text: 'arr[1]' }, { id: 'c', text: 'arr[2]' }, { id: 'd', text: 'arr[3]' } ],
+                    answer: 'c', explanation: 'Array indexing in C++ starts from 0. The first element is at index 0, the second at index 1, and the third at index 2. Therefore, `arr[2]` accesses the third element, which is 3.'
+                },
+                {
+                    id: 'q_docx_15', type: 'multiple_choice', content: 'Which type of memory is used by an Array in C++ programming language?',
+                    options: [ { id: 'a', text: 'Contiguous' }, { id: 'b', text: 'Both A and B' }, { id: 'c', text: 'None-contiguous' }, { id: 'd', text: 'None of the above' } ],
+                    answer: 'a', explanation: 'Arrays in C++ store their elements in a single, continuous block of memory. This allows for efficient access using pointer arithmetic.'
+                },
+                {
+                    id: 'q_docx_16', type: 'multiple_choice', content: 'Assume char a[]="Hello"; char b[]="Hello". The output of strcmp(a, b).',
+                    options: [ { id: 'a', text: '0' }, { id: 'b', text: '1' }, { id: 'c', text: '2' }, { id: 'd', text: '3' } ],
+                    answer: 'a', explanation: 'The `strcmp` function (from `<cstring>`) compares two C-style strings lexicographically. It returns 0 if the strings are equal, a negative value if the first string comes before the second alphabetically, and a positive value otherwise. Since "Hello" and "Hello" are identical, `strcmp(a, b)` returns 0.'
+                },
+                {
+                    id: 'q_docx_24', type: 'multiple_choice', content: 'Which of the following correctly declares an array?',
+                    options: [ { id: 'a', text: 'int array1[10];' }, { id: 'b', text: 'int array1;' }, { id: 'c', text: 'array1;' }, { id: 'd', text: 'array array[10];' } ],
+                    answer: 'a', explanation: 'The correct syntax for declaring an array requires the data type, the array name, and the size in square brackets, like `int array1[10];`. Option B declares an integer variable, C is incomplete, and D uses `array` as a type which is incorrect.'
+                },
+                {
+                    id: 'q_docx_26', type: 'multiple_choice', content: 'What is the correct definition of an array?',
+                    options: [ { id: 'a', text: 'An array is a series of elements of the same type in contiguous memory locations' }, { id: 'b', text: 'An array is a series of elements of different types in non-contiguous memory locations' }, { id: 'c', text: 'An array is a single element stored in memory' }, { id: 'd', text: 'None of the above' } ],
+                    answer: 'a', explanation: 'An array is a collection of elements of the *same* data type stored in *contiguous* memory locations, accessible via an index.'
+                },
+                {
+                    id: 'q_docx_30', type: 'multiple_choice', content: 'The highest index that can be used with an array?',
+                    options: [ { id: 'a', text: 'is the number of elements in the array.' }, { id: 'b', text: 'changes as the program runs.' }, { id: 'c', text: 'is determined by the array declaration.' }, { id: 'd', text: 'is the number of elements in the array minus one.' } ],
+                    answer: 'd', explanation: 'If an array is declared with size N (e.g., `int arr[N];`), its elements are indexed from 0 to N-1. Therefore, the highest valid index is N-1.'
+                },
+                {
+                    id: 'q_docx_tf_2', type: 'true_false', content: 'int a[50] = {0}; will initialize all elements of the array a to 0.',
+                    answer: true, explanation: 'Yes, initializing an array with `{0}` explicitly sets the first element to 0, and implicitly initializes all subsequent elements to 0 as well. This is a common C++ idiom for zero-initializing an array.'
+                },
+                {
+                    id: 'q_docx_tf_5', type: 'true_false', content: 'Assume char a[]="Hello"; char b[]="hello". The output of strcmp(a, b)=0.',
+                    answer: false, explanation: '`strcmp` performs a case-sensitive comparison. Since "Hello" and "hello" differ in the case of the first letter, they are not considered equal. `strcmp` would return a non-zero value (specifically, a positive value because \'H\' comes before \'h\' in ASCII).'
+                },
+                {
+                    id: 'q_docx_tf_6', type: 'true_false', content: 'Total sum of elements in integer array can be calculated by: int sum=0; for(int i=0;i<10;i++) cout<<sum+=x[i];',
+                    answer: false, explanation: 'This code snippet has several issues. Firstly, it prints the *cumulative* sum in each iteration, not the final total sum. Secondly, `cout << sum += x[i]` is syntactically awkward and might not compile or behave as expected due to operator precedence; `sum += x[i]; cout << sum;` would be clearer. To calculate the total sum, the `cout` should be outside the loop, printing `sum` only after the loop finishes.'
+                },
+                {
+                    id: 'q_docx_fb_1', type: 'fill_in_blank', content: 'Because cin doesn\'t support tabular, blank and space, we use ________ instead of ________.',
+                    answer: 'getline(), cin', explanation: '`cin` stops reading input when it encounters whitespace (like space, tab, or newline). To read an entire line of text, including spaces, the `getline(cin, stringVariable)` function is used.'
+                },
+                {
+                    id: 'q_docx_w_1', type: 'workout', content: 'Write a C++ program that prints the maximum value from an array named Array1. The elements of Array1 are 3, 7, 24, 7, 1.',
+                    answer: 'See explanation for code.',
+                    explanation: '```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int Array1[] = {3, 7, 24, 7, 1};\n    int n = sizeof(Array1) / sizeof(Array1[0]); // Calculate the number of elements\n\n    if (n == 0) {\n        cout << "Array is empty." << endl;\n        return 1;\n    }\n\n    int maxVal = Array1[0]; // Initialize maxVal with the first element\n\n    // Iterate through the rest of the array\n    for (int i = 1; i < n; ++i) {\n        if (Array1[i] > maxVal) {\n            maxVal = Array1[i]; // Update maxVal if current element is larger\n        }\n    }\n\n    cout << "The maximum value in Array1 is: " << maxVal << endl; // Output: 24\n\n    return 0;\n}\n```\n*Explanation:* The program initializes `maxVal` with the first element of the array. It then iterates through the remaining elements, comparing each with `maxVal`. If an element is found to be greater than `maxVal`, `maxVal` is updated. After checking all elements, `maxVal` holds the maximum value in the array, which is 24.'
+                }
+            ],
+            chapter6: [
+                {
+                    id: 'q_docx_9', type: 'multiple_choice', content: 'The operator used for dereferencing or indirection is _____.',
+                    options: [ { id: 'a', text: '*' }, { id: 'b', text: '->' }, { id: 'c', text: '&' }, { id: 'd', text: '=>>' } ],
+                    answer: 'a', explanation: 'The asterisk (*) operator is used as the dereference operator (or indirection operator). When applied to a pointer, it accesses the value stored at the memory address the pointer holds. The `->` operator is used to access members of a struct/class through a pointer, and `&` is the address-of operator.'
+                },
+                {
+                    id: 'q_docx_11', type: 'multiple_choice', content: 'Which of the following is the address operator?',
+                    options: [ { id: 'a', text: '@' }, { id: 'b', text: '#' }, { id: 'c', text: '&' }, { id: 'd', text: '%' } ],
+                    answer: 'c', explanation: 'The ampersand (&) operator is the address-of operator in C++. When applied to a variable, it returns the memory address of that variable.'
+                },
+                {
+                    id: 'q_docx_17', type: 'multiple_choice', content: 'Why pointer of pointer needs?',
+                    options: [ { id: 'a', text: 'To hold address of variable' }, { id: 'b', text: 'To hold address of pointer' }, { id: 'c', text: 'To access the value of pointer' }, { id: 'd', text: 'All' } ],
+                    answer: 'b', explanation: 'A pointer holds the address of a variable. A pointer-to-pointer (or double pointer) is needed when you want to store the memory address of another *pointer* variable. This is often used for dynamically allocated multi-dimensional arrays or for modifying pointers passed to functions.'
+                },
+                {
+                    id: 'q_docx_19', type: 'multiple_choice', content: 'Void pointer can point to which type of variable?',
+                    options: [ { id: 'a', text: 'int' }, { id: 'b', text: 'double' }, { id: 'c', text: 'float' }, { id: 'd', text: 'all of the mentioned' } ],
+                    answer: 'd', explanation: 'A `void*` pointer is a generic pointer that can hold the address of any data type. However, it cannot be dereferenced directly; it must be explicitly cast to a specific pointer type (e.g., `int*`, `float*`) before accessing the value it points to.'
+                },
+                {
+                    id: 'q_docx_tf_7', type: 'true_false', content: 'Given the declaration: int data[10]; int *p; then the statement: p = data; is invalid in C++.',
+                    answer: false, explanation: 'This statement is valid. In C++, the name of an array (like `data`) often decays into a pointer to its first element when used in expressions. Therefore, `p = data;` assigns the address of the first element (`&data[0]`) to the integer pointer `p`.'
+                },
+                {
+                    id: 'q_docx_m2', type: 'matching', content: 'Given: Char *n; char a[]={\'A\', \'B\', \'C\', \'D\'}; n = &a[2]; Match the expression (Column A) with its result (Column B).',
+                    pairs: [
+                        { left: '1. cout<<n;', right: 'D. gives address of \'C\'' },
+                        { left: '2. cout<<*n;', right: 'B. gives \'C\'' },
+                        { left: '3. cout<<--n;', right: 'A. gives address of \'B\'' },
+                        { left: '4. cout<<(++n);', right: 'E. gives address of \'D\'' },
+                        { left: '5. cout<<*++n;', right: 'C. gives \'D\'' }
+                    ],
+                    explanation: 'Revised Explanation (Independent Cases):\nInitial state: `n` points to `a[2]` (\'C\').\n1. `cout<<n;`: Prints address of `a[2]` (Address of \'C\'). -> D\n2. `cout<<*n;`: Prints value at `a[2]`, which is \'C\'. -> B\n3. `cout<<--n;`: Decrements `n` to point to `a[1]`, prints address of `a[1]` (Address of \'B\'). -> A\n4. `cout<<(++n);`: Increments `n` to point to `a[3]`, prints address of `a[3]` (Address of \'D\'). -> E\n5. `cout<<*++n;`: Increments `n` to point to `a[3]`, dereferences, prints value at `a[3]`, which is \'D\'. -> C'
+                },
+                {
+                    id: 'q_docx_fb_3', type: 'code_output', content: 'What is the result of the following code snippet?',
+                    code: `#include <iostream>\nusing namespace std;\nint main(){\nint arr[5] = {1, 2, 3, 4, 5};\nint *ptr = arr; // ptr points to arr[0]\ncout << *(ptr + 2) << endl;\nreturn 0;\n}`,
+                    answer: '3', explanation: '`ptr` points to the first element of `arr` (value 1). `ptr + 2` performs pointer arithmetic, calculating the address of the element two positions after `ptr`. This is the address of `arr[2]`. Dereferencing this address with `*(ptr + 2)` gives the value at `arr[2]`, which is 3.'
+                }
+            ]
+        };
+
+        // --- Merge Questions --- (Combine existing and new)
+        Object.keys(newQuestions).forEach(chapterKey => {
+            if (questions[chapterKey]) {
+                // Add new questions, avoiding duplicates by ID
+                const existingIds = new Set(questions[chapterKey].map(q => q.id));
+                newQuestions[chapterKey].forEach(newQ => {
+                    if (!existingIds.has(newQ.id)) {
+                        questions[chapterKey].push(newQ);
+                    }
+                });
+            } else {
+                questions[chapterKey] = newQuestions[chapterKey]; // Add if chapter didn't exist
+            }
+        });
+
+        // --- Application Logic ---
+
+        // Show tab content
+        function showTab(tabId) {
+            // Hide all content
+            document.querySelectorAll('.content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected content
+            const selectedContent = document.getElementById(tabId);
+            if (selectedContent) {
+                 selectedContent.classList.add('active');
+            }
+
+            // Add active class to selected tab
+            document.querySelectorAll('.tab').forEach(tab => {
+                // Match based on the chapter part of the ID or the text content
+                const tabText = tab.textContent.toLowerCase();
+                const chapterNum = tabId.replace('chapter', '');
+                if ((tabId.startsWith('chapter') && tabText.includes(chapterNum)) ||
+                    (tabId === 'home' && tabText === 'home')) {
+                    tab.classList.add('active');
+                }
+            });
+        }
+
+        // Create question card
+        function createQuestionCard(question, questionIndex) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.id = question.id;
+
+            // Question number and content
+            const questionNumber = document.createElement('div');
+            questionNumber.className = 'question-number';
+            // Use the provided index + 1 for numbering within the chapter
+            questionNumber.textContent = `Question ${questionIndex + 1}`;
+
+            const questionContent = document.createElement('div');
+            questionContent.className = 'question-content';
+            questionContent.textContent = question.content;
+
+            card.appendChild(questionNumber);
+            card.appendChild(questionContent);
+
+            // Code block if exists
+            if (question.code) {
+                const codeBlock = document.createElement('pre');
+                codeBlock.className = 'code-block';
+                codeBlock.textContent = question.code;
+                card.appendChild(codeBlock);
+            }
+
+            // Options based on question type
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'options';
+
+            if (question.type === 'multiple_choice') {
+                question.options.forEach(option => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'option';
+                    optionElement.dataset.id = option.id;
+                    optionElement.textContent = `${option.id.toUpperCase()}. ${option.text}`;
+                    
+                    // Add click event to handle user selection
+                    optionElement.addEventListener('click', () => {
+                        // Reset all options first
+                        optionsContainer.querySelectorAll('.option').forEach(opt => {
+                            opt.classList.remove('correct', 'incorrect');
+                        });
+                        
+                        // Check if the selected option is correct
+                        if (option.id === question.answer) {
+                            optionElement.classList.add('correct');
+                        } else {
+                            // Mark the selected option as incorrect
+                            optionElement.classList.add('incorrect');
+                            
+                            // Find and mark the correct option
+                            optionsContainer.querySelectorAll('.option').forEach(opt => {
+                                if (opt.dataset.id === question.answer) {
+                                    opt.classList.add('correct');
+                                }
+                            });
+                            
+                            // Show explanation automatically when wrong answer is selected
+                            const explanation = card.querySelector('.explanation');
+                            explanation.classList.add('visible');
+                            showAnswerButton.textContent = 'Hide Explanation';
+                        }
+                    });
+                    
+                    optionsContainer.appendChild(optionElement);
+                });
+            } else if (question.type === 'true_false') {
+                const trueOption = document.createElement('div');
+                trueOption.className = 'option';
+                trueOption.dataset.value = 'true';
+                trueOption.textContent = 'True';
+                
+                // Add click event for True option
+                trueOption.addEventListener('click', () => {
+                    // Reset both options
+                    trueOption.classList.remove('correct', 'incorrect');
+                    falseOption.classList.remove('correct', 'incorrect');
+                    
+                    // Check if True is the correct answer
+                    if (question.answer === true) {
+                        trueOption.classList.add('correct');
+                    } else {
+                        trueOption.classList.add('incorrect');
+                        falseOption.classList.add('correct');
+                        
+                        // Show explanation automatically when wrong answer is selected
+                        const explanation = card.querySelector('.explanation');
+                        explanation.classList.add('visible');
+                        showAnswerButton.textContent = 'Hide Explanation';
+                    }
+                });
+
+                const falseOption = document.createElement('div');
+                falseOption.className = 'option';
+                falseOption.dataset.value = 'false';
+                falseOption.textContent = 'False';
+                
+                // Add click event for False option
+                falseOption.addEventListener('click', () => {
+                    // Reset both options
+                    trueOption.classList.remove('correct', 'incorrect');
+                    falseOption.classList.remove('correct', 'incorrect');
+                    
+                    // Check if False is the correct answer
+                    if (question.answer === false) {
+                        falseOption.classList.add('correct');
+                    } else {
+                        falseOption.classList.add('incorrect');
+                        trueOption.classList.add('correct');
+                        
+                        // Show explanation automatically when wrong answer is selected
+                        const explanation = card.querySelector('.explanation');
+                        explanation.classList.add('visible');
+                        showAnswerButton.textContent = 'Hide Explanation';
+                    }
+                });
+
+                optionsContainer.appendChild(trueOption);
+                optionsContainer.appendChild(falseOption);
+            } else if (question.type === 'code_output') {
+                // No options displayed directly, answer in explanation
+            } else if (question.type === 'matching') {
+                const matchingContainer = document.createElement('div');
+                matchingContainer.className = 'matching-container';
+
+                question.pairs.forEach((pair, index) => {
+                    const pairContainer = document.createElement('div');
+                    pairContainer.className = 'matching-pair';
+
+                    const leftItem = document.createElement('div');
+                    leftItem.className = 'matching-item';
+                    leftItem.textContent = pair.left; // Use original left text
+
+                    const rightItem = document.createElement('div');
+                    rightItem.className = 'matching-item';
+                    rightItem.textContent = pair.right;
+
+                    pairContainer.appendChild(leftItem);
+                    pairContainer.appendChild(rightItem);
+                    matchingContainer.appendChild(pairContainer);
+                });
+                optionsContainer.appendChild(matchingContainer);
+            } else if (question.type === 'fill_in_blank') {
+                const blankLabel = document.createElement('label');
+                blankLabel.textContent = 'Your Answer: ';
+                const blankInput = document.createElement('input');
+                blankInput.type = 'text';
+                blankInput.className = 'fill-blank-input';
+                blankInput.placeholder = 'Type your answer here';
+                optionsContainer.appendChild(blankLabel);
+                optionsContainer.appendChild(blankInput);
+            } else if (question.type === 'workout') {
+                // Workout problems usually just have the description and explanation
+                const workoutInfo = document.createElement('p');
+                workoutInfo.textContent = 'Refer to the explanation for the solution/code.';
+                workoutInfo.style.fontStyle = 'italic';
+                optionsContainer.appendChild(workoutInfo);
+            }
+
+            card.appendChild(optionsContainer);
+
+            // Show answer button
+            const buttonContainer = document.createElement('div');
+            const showAnswerButton = document.createElement('button');
+            showAnswerButton.className = 'button';
+            showAnswerButton.textContent = 'Show Explanation';
+            showAnswerButton.addEventListener('click', () => {
+                const explanation = card.querySelector('.explanation');
+                explanation.classList.toggle('visible');
+                showAnswerButton.textContent = explanation.classList.contains('visible') ? 'Hide Explanation' : 'Show Explanation';
+
+                // Highlight correct answers when explanation is shown
+                if (explanation.classList.contains('visible')) {
+                    if (question.type === 'multiple_choice') {
+                        // Skip highlighting if already handled by click events
+                    } else if (question.type === 'true_false') {
+                        // Skip highlighting if already handled by click events
+                    }
+                } else {
+                     // Remove highlighting when explanation is hidden
+                     if (question.type === 'multiple_choice' || question.type === 'true_false') {
+                        // Don't reset highlighting from user clicks
+                    }
+                }
+            });
+            buttonContainer.appendChild(showAnswerButton);
+            card.appendChild(buttonContainer);
+
+            // Explanation
+            const explanation = document.createElement('div');
+            explanation.className = 'explanation';
+                // Format explanation based on type
+            let explanationHTML = `<strong>Explanation:</strong><br>`;
+            if (question.type === 'code_output') {
+                // Show only output and explanation
+                explanationHTML = `<strong>Output:</strong> <span style="color: var(--text-color); user-select: all;">${question.answer}</span><br><br><strong>Explanation:</strong><br>${question.explanation}`;
+            } else if (question.type === 'matching') {
+                explanationHTML = `<strong>Explanation:</strong><br>${question.explanation}`;
+            } else if (question.type === 'fill_in_blank') {
+                explanationHTML = `<strong>Answer:</strong> ${question.answer}<br><br><strong>Explanation:</strong><br>${question.explanation}`;
+            } else if (question.type === 'workout') {
+                 explanationHTML = `<strong>Solution / Code:</strong><br>${question.explanation}`; // Explanation contains the code/solution
+            } else {
+                explanationHTML = `<strong>Explanation:</strong><br>${question.explanation}`;
+            }           // Render explanation HTML, converting ```cpp blocks
+            explanation.innerHTML = explanationHTML.replace(/```cpp\n([\[\S\s]*?)\n```/g, (match, code) => {
+                // Escape HTML entities within the code block
+                const escapedCode = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                return `<pre><code>${escapedCode}</code></pre>`;
+            });
+
+            card.appendChild(explanation);
+
+            return card;
+        }
+
+        // Render questions for a chapter
+        function renderQuestions(chapterId) {
+            const container = document.getElementById(`${chapterId}Questions`);
+            if (!container) return;
+            container.innerHTML = ''; // Clear previous questions
+            const chapterQuestions = questions[chapterId] || [];
+            chapterQuestions.forEach((question, index) => {
+                const card = createQuestionCard(question, index);
+                container.appendChild(card);
+            });
+        }
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Apply saved theme on load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '☀️';
+        } else {
+             document.documentElement.removeAttribute('data-theme');
+             themeToggle.textContent = '🌙';
+        }
+
+        // Initial render
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuestions('chapter3');
+            renderQuestions('chapter4');
+            renderQuestions('chapter5');
+            renderQuestions('chapter6');
+            showTab('home'); // Start on home tab
+        });
+
+    </script>
+</body>
+</html>
+
+
+
+    <footer>
+        <p style="text-align: center; padding: 10px; background-color: var(--card-bg); color: var(--text-color); font-size: 0.8em; border-top: 1px solid var(--border-color);">Prepared By : AMUECSF Academics Department. <a href="https://t.me/acapo17" target="_blank" style="color: var(--primary-color); text-decoration: none;">(https://t.me/acapo17)</a></p>
+    </footer>
+
